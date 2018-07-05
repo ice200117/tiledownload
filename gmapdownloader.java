@@ -142,11 +142,20 @@ public class gmapdownloader {
 	{
 		//mkdir if folder not existed
 		File file = new File(app_path+filename);
+    String absolutePath = file.getAbsolutePath();
+    String filePath = absolutePath.
+          substring(0,absolutePath.lastIndexOf(File.separator));
+
 		if (file.exists() && file.length() > 0) { 
 			System.out.println("already downloaded: " + "./" + filename);
 			return true;
 		}
 		
+    File dir  = new File(filePath);
+    if (!dir.exists()) { 
+      dir.mkdirs();
+    }
+
 		URLConnection conn = null;
 		OutputStream  out  = null;
 		InputStream   in   = null;
@@ -323,7 +332,11 @@ public class gmapdownloader {
 					//}
 					//download("http://mt"+((x+y)%4)+".google.com/vt/lyrs=s&"+mapparams, "tiles/mt_"+mapparams+".jpeg");
 					boolean d = false;
-					d =  download("http://mt"+((x+y)%4)+".google.com/vt/lyrs=y&"+mapparams+"&s=Ga", "tiles/yt_"+mapparams+".jpeg");
+					//d =  download("http://mt"+((x+y)%4)+".google.com/vt/lyrs=y&"+mapparams+"&s=Ga", "tiles/yt_"+mapparams+".jpeg");
+					
+					//高德
+					d =  download("http://webrd0"+((x+y)%4 + 1)+".is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&"+ mapparams, "tiles/yt_"+mapparams+".jpeg");
+					
 					if(!d){
 						System.exit(0);
 					}
