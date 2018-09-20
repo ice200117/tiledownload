@@ -38,7 +38,8 @@ public class gmapdownloader {
 	/**
 	 * Static Variable
 	 */
-	public String app_path = System.getProperty("user.dir") + "/";
+	//public String app_path = System.getProperty("user.dir") + "/haiba/";
+	public String app_path = "/home/web/www/airwise/public/tiles/haiba/";
 	public String mapfiles = "http://maps.google.com/mapfiles/mapfiles/132e/map2";
 	
 	
@@ -147,9 +148,12 @@ public class gmapdownloader {
           substring(0,absolutePath.lastIndexOf(File.separator));
 
 		if (file.exists() && file.length() > 0) { 
-			System.out.println("already downloaded: " + "./" + filename);
+			System.out.println("already downloaded: " +  absolutePath);
 			return true;
-		}
+    }else{
+			System.out.println(" downloading: " +  absolutePath);
+    }
+
 		
     File dir  = new File(filePath);
     if (!dir.exists()) { 
@@ -171,7 +175,7 @@ public class gmapdownloader {
 				out.write(buffer, 0, numRead);
 				numWritten += numRead;
 			}
-			System.out.println("downloading: " + "./" + filename + "\t" + numWritten);
+			//System.out.println("downloading: " + "./" + filename + "\t" + numWritten);
 			in.close();
 			out.close();
 			return true;
@@ -277,15 +281,15 @@ public class gmapdownloader {
 			
 			int x_max = coord_to_tile_x1(z,lat_end,lng_end);
 			int y_min = coord_to_tile_y1(z,lat_end,lng_end);
-			System.out.println("zzzzzzzzzzzzzzzzzzzz");
-			System.out.println(z);
-			System.out.println("xxxxxxx");
-			System.out.println(x_min);
-			System.out.println(x_max);
-			System.out.println("yyyyyyy");
-			System.out.println(y_min);
-			System.out.println(y_max);
-			System.out.println("************");
+			//System.out.println("zzzzzzzzzzzzzzzzzzzz");
+			//System.out.println(z);
+			//System.out.println("xxxxxxx");
+			//System.out.println(x_min);
+			//System.out.println(x_max);
+			//System.out.println("yyyyyyy");
+			//System.out.println(y_min);
+			//System.out.println(y_max);
+			//System.out.println("************");
 			//Read XYZ
 			String filePath = "xyz.conf";
 			List<String> list = new ArrayList<String>();
@@ -302,7 +306,7 @@ public class gmapdownloader {
 						System.out.println(lineTxt);
 						list.add(lineTxt);
 					}
-					System.out.println("*******end in xyx");
+					//System.out.println("*******end in xyx");
 					read.close();
 
 					xb = Integer.parseInt(  list.get(0) );
@@ -335,7 +339,10 @@ public class gmapdownloader {
 					//d =  download("http://mt"+((x+y)%4)+".google.com/vt/lyrs=y&"+mapparams+"&s=Ga", "tiles/yt_"+mapparams+".jpeg");
 					
 					//高德
-					d =  download("http://webrd0"+((x+y)%4 + 1)+".is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&"+ mapparams, "tiles/yt_"+mapparams+".jpeg");
+					//d =  download("http://webrd0"+((x+y)%4 + 1)+".is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&"+ mapparams, "tiles/yt_"+mapparams+".jpeg");
+
+					//海拔
+					d =  download("https://maps-for-free.com/layer/relief/z"+z+"/row"+y+"/"+z+"_"+x+"-"+y+".jpg", z+"/"+x+"/"+y+".jpg");
 					
 					if(!d){
 						System.exit(0);
